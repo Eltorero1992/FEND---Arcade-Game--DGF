@@ -1,12 +1,12 @@
 // Enemies our player must avoid
-var Enemy = function(x , y) {
+var Enemy = function(x , y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    x = 0;
-    y = 207.5;
-
+    this.startingPosition = [x,y,speed];
     this.x = x;
     this.y = y;
+    this.speed = speed;
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -16,11 +16,11 @@ var Enemy = function(x , y) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
 
-    this.x += 1000 * dt
+    this.x += this.speed * dt
 
     if ( this.x < -55 || this.x > 459){
-            this.x = -55;
-            this.y = 207.5;
+            this.x = this.startingPosition[0]
+            this.y = this.startingPosition[1]
         console.log(this.x, this.y)
     }
 
@@ -98,19 +98,22 @@ class playerObject {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-let allEnemies = [new Enemy]
+let allEnemies = [new Enemy(0,207,300), new Enemy(0,124.5,500), new Enemy(0,41.5,100), new Enemy(0,207,150)]
+
 // Place the player object in a variable called player
 let player = new playerObject
 
 const checkCollisions = () => {
 
-            if (Math.ceil(player.x) === (Math.ceil(allEnemies[0].x)) && Math.ceil(player.y) === Math.ceil(allEnemies[0].y)) {
+        if (Math.ceil(player.y) === Math.ceil(allEnemies[0].y)) {
+            if ((Math.ceil(player.x) <= ((Math.ceil(allEnemies[0].x)) + 55) && Math.ceil(player.x) >= (Math.ceil(allEnemies[0].x)-55))) {
 
                     player.x = 101 * 2;
                     player.y = 83*4 + (83/2);
 
                 console.log("collision registered")
             }
+        }
 
     // console.log(player.x, Enemy[0].x)
 
