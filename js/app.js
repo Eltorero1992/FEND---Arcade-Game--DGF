@@ -1,11 +1,12 @@
 // Enemies our player must avoid
-var Enemy = function(x , y, speed) {
+var Enemy = function (x , y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.startingPosition = [x,y,speed];
+
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.startingPosition = [x,y,speed];
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -45,6 +46,7 @@ class playerObject {
         y = 83*4 + (83/2);
         this.x = x;
         this.y = y;
+        this.startingPosition = [x,y];
 
 
     }
@@ -98,30 +100,28 @@ class playerObject {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-let allEnemies = [new Enemy(0,207,300), new Enemy(0,124.5,500), new Enemy(0,41.5,100), new Enemy(0,207,150)]
+let allEnemies = [new Enemy(0,207.5,300), new Enemy(0,124.5,500), new Enemy(0,41.5,100), new Enemy(0,207.5,150)]
 
 // Place the player object in a variable called player
 let player = new playerObject
 
 const checkCollisions = () => {
 
-        if (Math.ceil(player.y) === Math.ceil(allEnemies[0].y)) {
-            if ((Math.ceil(player.x) <= ((Math.ceil(allEnemies[0].x)) + 55) && Math.ceil(player.x) >= (Math.ceil(allEnemies[0].x)-55))) {
+    allEnemies.forEach(function(enemy) {
+        if (Math.ceil(player.y) === Math.ceil(enemy.y)) {
+            if ((Math.ceil(player.x) <= ((Math.ceil(enemy.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(enemy.x)-55))) {
 
-                    player.x = 101 * 2;
-                    player.y = 83*4 + (83/2);
+                    player.x = player.startingPosition[0];
+                    player.y = player.startingPosition[1];
 
                 console.log("collision registered")
             }
         }
+    });
+}
 
-    // console.log(player.x, Enemy[0].x)
+const randomSet = () => {
 
-        // allEnemies.forEach(function(enemy) {
-        //     if (player.x === Enemy.x) {
-        //         console.log("collision registered")
-        //     }
-        // });
 }
 
 // This listens for key presses and sends the keys to your
