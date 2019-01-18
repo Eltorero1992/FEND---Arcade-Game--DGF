@@ -1,12 +1,12 @@
 // Enemies our player must avoid
-var Enemy = function (x , y, speed) {
+var Enemy = function (randomSet) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
-    this.x = x;
-    this.y = y;
-    this.speed = speed;
-    this.startingPosition = [x,y,speed];
+    this.x = randomSet[0];
+    this.y = randomSet[1];
+    this.speed = randomSet[2];
+    this.startingPosition = randomSet;
+    console.log(randomSet[0])
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -19,7 +19,9 @@ Enemy.prototype.update = function(dt) {
 
     this.x += this.speed * dt
 
+
     if ( this.x < -55 || this.x > 459){
+            this.startingPosition = randomSet ();
             this.x = this.startingPosition[0]
             this.y = this.startingPosition[1]
         console.log(this.x, this.y)
@@ -96,11 +98,40 @@ class playerObject {
         }
 }
 
+const randomSet = () => {
 
+    const minPos = Math.ceil(0);
+    const maxPos = Math.floor(3);
+    const minSp = Math.ceil(100);
+    const maxSp = Math.floor(400);
+
+    let randomIntPos = Math.floor(Math.random() * (maxPos - minPos)) + minPos;
+    let randomIntSp = Math.floor(Math.random() * (maxSp - minSp)) + minSp
+
+    let randomSet = [];
+
+    console.log(randomIntPos)
+
+    switch (randomIntPos){
+        case 0:
+        randomSet = [0,207.5,randomIntSp];
+        break;
+
+        case 1:
+        randomSet = [0,124.5,randomIntSp]
+        break;
+
+        case 2:
+        randomSet = [0,41.5,randomIntSp]
+        break;
+    }
+
+    return randomSet
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-let allEnemies = [new Enemy(0,207.5,300), new Enemy(0,124.5,500), new Enemy(0,41.5,100), new Enemy(0,207.5,150)]
+let allEnemies = [new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(randomSet())]
 
 // Place the player object in a variable called player
 let player = new playerObject
@@ -120,9 +151,7 @@ const checkCollisions = () => {
     });
 }
 
-const randomSet = () => {
 
-}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
