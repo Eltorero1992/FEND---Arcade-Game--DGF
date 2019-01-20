@@ -56,6 +56,8 @@ class playerObject {
 
         update(){
 
+            document.querySelector(".score").innerText = `Points: ${this.points}`;
+
             switch(true){
                 case (this.x < 0):
                 this.x = 0;
@@ -172,7 +174,7 @@ const checkCollisions = () => {
     allEnemies.forEach(function(enemy) {
         if (Math.ceil(player.y) === Math.ceil(enemy.y)) {
             if ((Math.ceil(player.x) <= ((Math.ceil(enemy.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(enemy.x)-55))) {
-
+                    player.points -= 10
                     player.x = player.startingPosition[0];
                     player.y = player.startingPosition[1];
 
@@ -202,3 +204,5 @@ document.addEventListener('click', function (){
                     console.log (player.sprite);
                 }
             })
+
+
