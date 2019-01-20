@@ -49,6 +49,7 @@ class playerObject {
         this.y = y;
         this.startingPosition = [x,y];
         this.sprite = 'images/char-boy.png'
+        this.points = 0;
 
 
     }
@@ -71,14 +72,9 @@ class playerObject {
                 case (this.y < 41.5):
                 this.x = 101 * 2;
                 this.y = 83*4 + (83/2);
+                this.points += 10;
                 break;
             }
-
-            // if ( this.x < 0 || this.x > 404 || this.y < 41.5 || this.y > 375.5){
-            //         this.x = 101 * 2;
-            //         this.y = 83*4 + (83/2);
-            // };
-
         };
 
 
