@@ -2,11 +2,11 @@
 var Enemy = function (randomSet) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = randomSet[0];
-    this.y = randomSet[1];
-    this.speed = randomSet[2];
+    let [x,y,speed] = randomSet;
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
     this.startingPosition = randomSet;
-    console.log(randomSet[0])
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -24,7 +24,6 @@ Enemy.prototype.update = function(dt) {
             this.startingPosition = randomSet ();
             this.x = this.startingPosition[0]
             this.y = this.startingPosition[1]
-        console.log(this.x, this.y)
     }
 
     // You should multiply any movement by the dt parameter
@@ -49,6 +48,7 @@ class playerObject {
         this.x = x;
         this.y = y;
         this.startingPosition = [x,y];
+        this.sprite = 'images/char-boy.png'
 
 
     }
@@ -58,14 +58,13 @@ class playerObject {
             if ( this.x < 0 || this.x > 404 || this.y < 41.5 || this.y > 375.5){
                     this.x = 101 * 2;
                     this.y = 83*4 + (83/2);
-                console.log(this.x, this.y)
-            }
-            // console.log(positionX,positionY);
+            };
 
-        }
+        };
+
 
         render(){
-            this.sprite = 'images/char-boy.png';
+
             ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
         }
@@ -110,7 +109,6 @@ const randomSet = () => {
 
     let randomSet = [];
 
-    console.log(randomIntPos)
 
     switch (randomIntPos){
         case 0:
@@ -165,3 +163,10 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+document.addEventListener('click', function (){
+            if(event.target.nodeName === "IMG") {
+                    player.sprite = event.target.attributes.src.nodeValue
+                    console.log (player.sprite);
+                }
+            })
