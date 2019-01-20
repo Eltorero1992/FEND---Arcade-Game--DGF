@@ -161,6 +161,10 @@ var Engine = (function(global) {
         });
 
         player.render();
+
+        allCollectables.forEach(function(collectable) {
+            collectable.render();
+        });
     }
 
     /* This function does nothing but it could have been a good place to
@@ -186,6 +190,14 @@ var Engine = (function(global) {
         'images/char-horn-girl.png',
         'images/char-pink-girl.png',
         'images/char-princess-girl.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png',
+        'images/Heart.png',
+        'images/Rock.png',
+        'images/Key.png',
+        'images/Selector.png',
+        'images/Star.png',
     ]);
 
     Resources.onReady(init);

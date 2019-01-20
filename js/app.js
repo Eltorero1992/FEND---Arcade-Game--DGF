@@ -55,10 +55,29 @@ class playerObject {
 
         update(){
 
-            if ( this.x < 0 || this.x > 404 || this.y < 41.5 || this.y > 375.5){
-                    this.x = 101 * 2;
-                    this.y = 83*4 + (83/2);
-            };
+            switch(true){
+                case (this.x < 0):
+                this.x = 0;
+                break;
+
+                case (this.x > 404):
+                this.x = 404;
+                break;
+
+                case (this.y > 373.5):
+                this.y = 373.5;
+                break;
+
+                case (this.y < 41.5):
+                this.x = 101 * 2;
+                this.y = 83*4 + (83/2);
+                break;
+            }
+
+            // if ( this.x < 0 || this.x > 404 || this.y < 41.5 || this.y > 375.5){
+            //         this.x = 101 * 2;
+            //         this.y = 83*4 + (83/2);
+            // };
 
         };
 
@@ -127,12 +146,30 @@ const randomSet = () => {
     return randomSet
 }
 
+class collectable {
+
+    constructor (randomSet){
+
+        let [x,y] = randomSet
+        this.x = x
+        this.y = y
+        this.sprite = 'images/Gem Blue.png'
+    }
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(randomSet())]
 
 // Place the player object in a variable called player
 let player = new playerObject
+
+let allCollectables = [new collectable([0,202])]
 
 const checkCollisions = () => {
 
@@ -148,7 +185,6 @@ const checkCollisions = () => {
         }
     });
 }
-
 
 
 // This listens for key presses and sends the keys to your
