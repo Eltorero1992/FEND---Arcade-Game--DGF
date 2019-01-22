@@ -6,6 +6,13 @@ img, button {
 	height: 140px;
 }
 
+
 button:active, [aria-pressed = true] {
 	background-color: blue;
+}
+
+
+
+.lifes {
+	height: 30px;
 }

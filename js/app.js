@@ -50,13 +50,13 @@ class playerObject {
         this.startingPosition = [x,y];
         this.sprite = 'images/char-boy.png'
         this.points = 0;
+        document.querySelector(".score").innerText = `Points: ${this.points}`;
 
 
     }
 
         update(){
 
-            document.querySelector(".score").innerText = `Points: ${this.points}`;
 
             switch(true){
                 case (this.x < 0):
@@ -74,7 +74,7 @@ class playerObject {
                 case (this.y < 41.5):
                 this.x = 101 * 2;
                 this.y = 83*4 + (83/2);
-                this.points += 10;
+                document.querySelector(".score").innerText  += 10;
                 break;
             }
         };
@@ -144,14 +144,27 @@ const randomSet = () => {
     return randomSet
 }
 
+const randomSetCollectable = () => {
+
+    const intX = 5;
+
+    let randomSetCollectableX = Math.floor(Math.random()*Math.floor(intX));
+
+    let collectablePositionX = randomSetCollectableX*101;
+
+    let collectablePosition = [collectablePositionX + randomSet()[0],randomSet()[1]];
+
+    return collectablePosition
+}
+
 class collectable {
 
-    constructor (randomSet){
+    constructor (randomSet, img){
 
-        let [x,y] = randomSet
-        this.x = x
-        this.y = y
-        this.sprite = 'images/Gem Blue.png'
+        let [x,y] = randomSet;
+        this.x = x;
+        this.y = y;
+        this.sprite = img;
     }
 
     render() {
@@ -167,23 +180,83 @@ let allEnemies = [new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(rand
 // Place the player object in a variable called player
 let player = new playerObject
 
-let allCollectables = [new collectable([0,202])]
+let allCollectables = [new collectable(randomSetCollectable(),'images/Gem Blue.png'),new collectable(randomSetCollectable(),'images/Gem Green.png'),new collectable(randomSetCollectable(),'images/Gem Orange.png'),new collectable(randomSetCollectable(),'images/Star.png'), new collectable(randomSetCollectable(),'images/Heart.png'), new collectable(randomSetCollectable(),'images/Key.png')]
 
 const checkCollisions = () => {
 
     allEnemies.forEach(function(enemy) {
         if (Math.ceil(player.y) === Math.ceil(enemy.y)) {
             if ((Math.ceil(player.x) <= ((Math.ceil(enemy.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(enemy.x)-55))) {
-                    player.points -= 10
+
+                    document.querySelector("img").remove();
+
                     player.x = player.startingPosition[0];
                     player.y = player.startingPosition[1];
+
+                    if (document.querySelector(".lifeCounter").childElementCount === 0) {
+                        console.log("Game Over");
+                    }
+
+                console.log("collision registered")
+            }
+        }
+    });
+
+    allCollectables.forEach(function(collectable) {
+        if (Math.ceil(player.y) === Math.ceil(collectable.y)) {
+            if ((Math.ceil(player.x) <= ((Math.ceil(collectable.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(collectable.x)-55))) {
+
+                    switch (true) {
+                        case (collectable.sprite === 'images/Gem Blue.png') :
+
+                        collectable.x = 0;
+                        player.points += 10;
+                        break
+
+                        case (collectable.sprite === 'images/Gem Green.png') :
+
+                        collectable.x = 0;
+                        player.points += 20;
+                        break
+
+                        case (collectable.sprite === 'images/Gem Orange.png') :
+
+                        collectable.x = 0;
+                        player.points += 30;
+                        break
+
+                        case (collectable.sprite === 'images/Star.png') :
+
+                        collectable.x = 0;
+                        player.points += 20;
+                        break
+
+                        case (collectable.sprite === 'images/Heart.png') :
+
+                        if (document.querySelector(".lifeCounter").childElementCount < 3) {
+                            document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')
+                        }
+
+                        collectable.x = 0;
+
+                        break
+
+                        case (collectable.sprite === 'images/Key.png') :
+
+                        collectable.x = 0;
+                        player.points += 20;
+                        break
+                    }
+
+
+
+                    collectable.x = 202
 
                 console.log("collision registered")
             }
         }
     });
 }
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
