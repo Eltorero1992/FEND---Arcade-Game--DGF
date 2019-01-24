@@ -29,7 +29,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    return [this.x]
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -146,25 +146,61 @@ const randomSet = () => {
 
 const randomSetCollectable = () => {
 
-    const intX = 5;
-
-    let randomSetCollectableX = Math.floor(Math.random()*Math.floor(intX));
+    let randomSetCollectableX = Math.floor(Math.random()*Math.floor(5));
 
     let collectablePositionX = randomSetCollectableX*101;
 
-    let collectablePosition = [collectablePositionX + randomSet()[0],randomSet()[1]];
+    let randomCollectableItem = Math.floor(Math.random()*Math.floor(6));
 
-    return collectablePosition
+        console.log (randomCollectableItem)
+
+    let collectableItem = "";
+
+    switch (randomCollectableItem){
+
+        case 0:
+            collectableItem = 'images/Gem Blue.png';
+            break
+
+        case 1:
+            collectableItem = 'images/Gem Green.png';
+            break
+
+        case 2:
+            collectableItem = 'images/Gem Orange.png';
+            break
+
+        case 3:
+            collectableItem = 'images/Heart.png';
+            break
+
+        case 4:
+            collectableItem = 'images/Key.png';
+            break
+
+        case 5:
+            collectableItem = 'images/Star.png';
+            break
+
+    }
+
+    let collectablePosition = [collectablePositionX + randomSet()[0],randomSet()[1],collectableItem];
+
+    console.log(collectablePosition)
+
+    return [collectablePosition]
 }
 
 class collectable {
 
-    constructor (randomSet, img){
+    constructor ([randomSetCollectable]){
 
-        let [x,y] = randomSet;
+        let [x,y,img] = randomSetCollectable;
         this.x = x;
         this.y = y;
         this.sprite = img;
+
+        console.log(this.x,this.y,this.sprite)
     }
 
     render() {
@@ -180,7 +216,7 @@ let allEnemies = [new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(rand
 // Place the player object in a variable called player
 let player = new playerObject
 
-let allCollectables = [new collectable(randomSetCollectable(),'images/Gem Blue.png'),new collectable(randomSetCollectable(),'images/Gem Green.png'),new collectable(randomSetCollectable(),'images/Gem Orange.png'),new collectable(randomSetCollectable(),'images/Star.png'), new collectable(randomSetCollectable(),'images/Heart.png'), new collectable(randomSetCollectable(),'images/Key.png')]
+let allCollectables = [new collectable(randomSetCollectable())]
 
 const checkCollisions = () => {
 
@@ -202,33 +238,29 @@ const checkCollisions = () => {
         }
     });
 
-    allCollectables.forEach(function(collectable) {
-        if (Math.ceil(player.y) === Math.ceil(collectable.y)) {
-            if ((Math.ceil(player.x) <= ((Math.ceil(collectable.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(collectable.x)-55))) {
+    allCollectables.forEach(function(collectableItem) {
+        if (Math.ceil(player.y) === Math.ceil(collectableItem.y)) {
+            if ((Math.ceil(player.x) <= ((Math.ceil(collectableItem.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(collectableItem.x)-55))) {
+
+                    allCollectables.pop();
 
                     switch (true) {
                         case (collectable.sprite === 'images/Gem Blue.png') :
 
-                        collectable.x = 0;
                         player.points += 10;
+
                         break
 
                         case (collectable.sprite === 'images/Gem Green.png') :
-
-                        collectable.x = 0;
                         player.points += 20;
                         break
 
                         case (collectable.sprite === 'images/Gem Orange.png') :
-
-                        collectable.x = 0;
                         player.points += 30;
                         break
 
                         case (collectable.sprite === 'images/Star.png') :
-
-                        collectable.x = 0;
-                        player.points += 20;
+                        player.points += 50;
                         break
 
                         case (collectable.sprite === 'images/Heart.png') :
@@ -237,17 +269,14 @@ const checkCollisions = () => {
                             document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')
                         }
 
-                        collectable.x = 0;
-
                         break
 
                         case (collectable.sprite === 'images/Key.png') :
-
-                        collectable.x = 0;
                         player.points += 20;
                         break
                     }
 
+                    setTimeout(function () {allCollectables.push(new collectable(randomSetCollectable()))},5000);
 
 
                     collectable.x = 202
