@@ -152,8 +152,6 @@ const randomSetCollectable = () => {
 
     let randomCollectableItem = Math.floor(Math.random()*Math.floor(6));
 
-        console.log (randomCollectableItem)
-
     let collectableItem = "";
 
     switch (randomCollectableItem){
@@ -185,8 +183,6 @@ const randomSetCollectable = () => {
     }
 
     let collectablePosition = [collectablePositionX + randomSet()[0],randomSet()[1],collectableItem];
-
-    console.log(collectablePosition)
 
     return [collectablePosition]
 }
@@ -246,9 +242,7 @@ const checkCollisions = () => {
 
                     switch (true) {
                         case (collectable.sprite === 'images/Gem Blue.png') :
-
                         player.points += 10;
-
                         break
 
                         case (collectable.sprite === 'images/Gem Green.png') :
@@ -276,7 +270,7 @@ const checkCollisions = () => {
                         break
                     }
 
-                    setTimeout(function () {allCollectables.push(new collectable(randomSetCollectable()))},5000);
+                    setTimeout(function () {allCollectables.push(new collectable(randomSetCollectable()))},2500);
 
 
                     collectable.x = 202

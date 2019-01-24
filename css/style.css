@@ -11,7 +11,12 @@ button:active, [aria-pressed = true] {
 	background-color: blue;
 }
 
-
+.scoreHeader {
+	width: 505px;
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+}
 
 .lifes {
 	height: 30px;
