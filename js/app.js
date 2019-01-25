@@ -58,6 +58,7 @@ class playerObject {
         update(){
 
 
+
             switch(true){
                 case (this.x < 0):
                 this.x = 0;
@@ -74,7 +75,8 @@ class playerObject {
                 case (this.y < 41.5):
                 this.x = 101 * 2;
                 this.y = 83*4 + (83/2);
-                document.querySelector(".score").innerText  += 10;
+                this.points += 10
+                document.querySelector(".score").innerText = `Points: ${this.points}`;
                 break;
             }
         };
@@ -237,27 +239,25 @@ const checkCollisions = () => {
     allCollectables.forEach(function(collectableItem) {
         if (Math.ceil(player.y) === Math.ceil(collectableItem.y)) {
             if ((Math.ceil(player.x) <= ((Math.ceil(collectableItem.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(collectableItem.x)-55))) {
-
-                    allCollectables.pop();
-
+                    console.log(collectable.sprite)
                     switch (true) {
-                        case (collectable.sprite === 'images/Gem Blue.png') :
+                        case (collectableItem.sprite === 'images/Gem Blue.png') :
                         player.points += 10;
                         break
 
-                        case (collectable.sprite === 'images/Gem Green.png') :
+                        case (collectableItem.sprite === 'images/Gem Green.png') :
                         player.points += 20;
                         break
 
-                        case (collectable.sprite === 'images/Gem Orange.png') :
+                        case (collectableItem.sprite === 'images/Gem Orange.png') :
                         player.points += 30;
                         break
 
-                        case (collectable.sprite === 'images/Star.png') :
+                        case (collectableItem.sprite === 'images/Star.png') :
                         player.points += 50;
                         break
 
-                        case (collectable.sprite === 'images/Heart.png') :
+                        case (collectableItem.sprite === 'images/Heart.png') :
 
                         if (document.querySelector(".lifeCounter").childElementCount < 3) {
                             document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')
@@ -265,17 +265,17 @@ const checkCollisions = () => {
 
                         break
 
-                        case (collectable.sprite === 'images/Key.png') :
-                        player.points += 20;
+                        case (collectableItem.sprite === 'images/Key.png') :
+                        player.points += 60;
                         break
                     }
 
+                    document.querySelector(".score").innerText = `Points: ${player.points}`;
+
+                    allCollectables.pop();
+
                     setTimeout(function () {allCollectables.push(new collectable(randomSetCollectable()))},2500);
 
-
-                    collectable.x = 202
-
-                console.log("collision registered")
             }
         }
     });

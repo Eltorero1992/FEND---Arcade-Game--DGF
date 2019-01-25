@@ -21,3 +21,13 @@ button:active, [aria-pressed = true] {
 .lifes {
 	height: 30px;
 }
+
+.score {
+	align-self: center;
+	font-size: larger;
+	font-family: "montserrat"
+}
+
+.lifeCounter {
+	margin-left: auto;
+}
