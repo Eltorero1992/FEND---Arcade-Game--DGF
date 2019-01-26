@@ -173,16 +173,29 @@ var Engine = (function(global) {
      */
     function reset() {
 
-        console.log("hello")
+        document.querySelector(".resetButton").addEventListener('click', function(){
 
 
-        function gameOver() {
+            player.x = player.startingPosition[0];
+            player.y = player.startingPosition[1];
+            allCollectables.pop()
+            allCollectables.push(new collectable(randomSetCollectable()))
+            allEnemies = []
+            for (i = 0; i < 5; i++) {
+                allEnemies.push(new Enemy(randomSet()))
+            }
 
+        })
 
-            if (document.querySelector(".lifeCounter").childElementCount <= 0){
-               console.log("Game Over");}
+        document.addEventListener('keyup',function() {
 
-        };
+            if (document.querySelector(".lifeCounter").childElementCount === 0){
+           console.log("Game Over")
+
+            }
+
+       })
+
         // noop
     }
 
