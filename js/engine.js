@@ -173,30 +173,49 @@ var Engine = (function(global) {
      */
     function reset() {
 
-        document.querySelector(".resetButton").addEventListener('click', function(){
-
+        const restartParameters = () => {
 
             player.x = player.startingPosition[0];
             player.y = player.startingPosition[1];
             allCollectables.pop()
             allCollectables.push(new collectable(randomSetCollectable()))
             allEnemies = []
-            for (i = 0; i < 5; i++) {
+
+            for (i = 0; i < 4; i++) {
                 allEnemies.push(new Enemy(randomSet()))
             }
 
-        })
+            if (document.querySelector(".lifeCounter").childElementCount < 3){
 
-        document.addEventListener('keyup',function() {
+                for (i = document.querySelector(".lifeCounter").childElementCount; i < 3; i++) {
+                    document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')
 
-            if (document.querySelector(".lifeCounter").childElementCount === 0){
-           console.log("Game Over")
+                }
 
             }
 
-       })
+        }
 
-        // noop
+
+
+
+        document.querySelector(".resetButton").addEventListener('click', function(){
+
+            restartParameters();
+
+        })
+
+        setInterval (function () {
+
+            if (document.querySelector(".lifeCounter").childElementCount <= 0){
+
+                restartParameters();
+            }
+
+        },100)
+
+
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to
