@@ -2,13 +2,8 @@ body {
     text-align: center;
 }
 
-img, button {
+img {
 	height: 140px;
-}
-
-
-button:active, [aria-pressed = true] {
-	background-color: blue;
 }
 
 .scoreHeader {
@@ -25,9 +20,17 @@ button:active, [aria-pressed = true] {
 .score {
 	align-self: center;
 	font-size: larger;
-	font-family: "montserrat"
+	font-family: "montserrat";
+	margin: auto;
 }
 
 .lifeCounter {
-	margin-left: auto;
+	margin: auto;
+}
+
+.resetButton {
+	margin: auto;
+	font-size: larger;
+	width: 200px;
+	border-radius: 20px;
 }
