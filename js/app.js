@@ -17,19 +17,19 @@ var Enemy = function (randomSet) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
 
+// You should multiply any movement by the dt parameter
+// which will ensure the game runs at the same speed for
+// all computers.
+
     this.x += this.speed * dt
 
+// Positions the enemy randomly in any of the three rock rows
 
     if ( this.x < -55 || this.x > 459){
             this.startingPosition = randomSet ();
             this.x = this.startingPosition[0]
             this.y = this.startingPosition[1]
     }
-
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
 };
 
 // Draw the enemy on the screen, required method for game
@@ -41,6 +41,12 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 class playerObject {
+
+//Set variables for the player object {
+    // Current position,
+    // starting position,
+    // image (needed for character selection),
+    // and points}
 
     constructor(x ,y){
         x = 101 * 2;
@@ -54,6 +60,10 @@ class playerObject {
 
 
     }
+
+// Stops player from going out of bounds by keeping the same position from where it is.
+// If a player reaches the water, 10 points are added.
+// This function runs constantly.
 
         update(){
 
@@ -76,11 +86,15 @@ class playerObject {
                 this.x = 101 * 2;
                 this.y = 83*4 + (83/2);
                 this.points += 10
+
+// Updates HTML code to reflect new score
+
                 document.querySelector(".score").innerText = `Points: ${this.points}`;
                 break;
             }
         };
 
+// Draws player image
 
         render(){
 
@@ -88,46 +102,56 @@ class playerObject {
 
         }
 
+// Moves the player proportional amounts to always be centered on the rendered block
+
         handleInput(key){
 
 
                 switch (key){
                     case 'up':
                         this.y -= 83
-                        console.log('up')
                         break;
 
                     case 'down':
                         this.y += 83
-                        console.log('down')
                         break;
 
                     case 'right':
                         this.x += 101
-                        console.log('right')
                         break;
 
                     case 'left':
                         this.x -= 101
-                        console.log('left')
                         break;
 
                 }
         }
 }
 
+// Random function generator for the enemies object
+
 const randomSet = () => {
 
     const minPos = Math.ceil(0);
     const maxPos = Math.floor(3);
+
+// minSp and maxSp set the min and max speed boundaries for the enemies
+// Please modify here if you wish to change speed
+
     const minSp = Math.ceil(100);
     const maxSp = Math.floor(400);
 
+// Generates random integer from 0 to 2
+
     let randomIntPos = Math.floor(Math.random() * (maxPos - minPos)) + minPos;
+
+// Generates random integer from 100 to 399
+
     let randomIntSp = Math.floor(Math.random() * (maxSp - minSp)) + minSp
 
     let randomSet = [];
 
+// Based on the interger obtained in randomIntPos, positions enemies in any of the three rock lines
 
     switch (randomIntPos){
         case 0:
@@ -146,15 +170,29 @@ const randomSet = () => {
     return randomSet
 }
 
+// Random generator for collectables
+
 const randomSetCollectable = () => {
+
+// Generates random integer from 0 to 4
 
     let randomSetCollectableX = Math.floor(Math.random()*Math.floor(5));
 
+// Multiples random integer to position collectable in any row position
+
     let collectablePositionX = randomSetCollectableX*101;
+
+// Generates random integer from 0 to 5 (Based on the number of available objects)
+// If new objects wants to be introduced please increase Math.floor value to -1 of total number of objects
 
     let randomCollectableItem = Math.floor(Math.random()*Math.floor(6));
 
+// Variable needed for the creation of the collectable array
+// This variable carries the image of the collectable
+
     let collectableItem = "";
+
+// Based on previous random integer it selects and object
 
     switch (randomCollectableItem){
 
@@ -184,22 +222,36 @@ const randomSetCollectable = () => {
 
     }
 
-    let collectablePosition = [collectablePositionX + randomSet()[0],randomSet()[1],collectableItem];
+// Creates collectable array ,
+// First item of the array positions collectable on the row
+// Second item of the array position the collecatable on the column using the randomSet function
+// Third item of the array carries the collectable image randomly generated
+
+    let collectablePosition = [collectablePositionX,randomSet()[1],collectableItem];
 
     return [collectablePosition]
 }
 
+// Collectable object
+
 class collectable {
 
+// Variables for the collectable objects are:
+// x = position on the row
+// y = position on the column
+// img = image of collectable
+
     constructor ([randomSetCollectable]){
+
+// Destructuriing array
 
         let [x,y,img] = randomSetCollectable;
         this.x = x;
         this.y = y;
         this.sprite = img;
-
-        console.log(this.x,this.y,this.sprite)
     }
+
+// Draws collectable on the canvas
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -214,32 +266,42 @@ let allEnemies = [new Enemy(randomSet()), new Enemy(randomSet()), new Enemy(rand
 // Place the player object in a variable called player
 let player = new playerObject
 
+// Instaciate collectables
+
+// [POTENCIAL UPGRADE] Currently only one collectable is generated, option to have multiple collectables at the same time
+
 let allCollectables = [new collectable(randomSetCollectable())]
 
 const checkCollisions = () => {
+
+// Checks the enemy position in the column vs the player's
+// Check the enemy position in the row vs the player's
 
     allEnemies.forEach(function(enemy) {
         if (Math.ceil(player.y) === Math.ceil(enemy.y)) {
             if ((Math.ceil(player.x) <= ((Math.ceil(enemy.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(enemy.x)-55))) {
 
-                    document.querySelector("img").remove();
+// If both potitions match, takes one heart
+
+                    document.querySelector(".lifeCounter").firstElementChild.remove();
+
+// Sends the player back to the starting position
 
                     player.x = player.startingPosition[0];
                     player.y = player.startingPosition[1];
-
-                    if (document.querySelector(".lifeCounter").childElementCount === 0) {
-                        console.log("Game Over");
-                    }
-
-                console.log("collision registered")
             }
         }
     });
 
+// Checks the collectable position in the column vs the player's
+// Check the collectable position in the row vs the player's
+
     allCollectables.forEach(function(collectableItem) {
         if (Math.ceil(player.y) === Math.ceil(collectableItem.y)) {
             if ((Math.ceil(player.x) <= ((Math.ceil(collectableItem.x)) + 55) && Math.ceil(player.x) >= (Math.ceil(collectableItem.x)-55))) {
-                    console.log(collectable.sprite)
+
+// Based on the image of the collectable it gives different points
+
                     switch (true) {
                         case (collectableItem.sprite === 'images/Gem Blue.png') :
                         player.points += 10;
@@ -259,9 +321,11 @@ const checkCollisions = () => {
 
                         case (collectableItem.sprite === 'images/Heart.png') :
 
-                        if (document.querySelector(".lifeCounter").childElementCount < 3) {
-                            document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')
-                        }
+// If a Heart is collected, it increases players life +1 to a maximum of 3
+
+                            if (document.querySelector(".lifeCounter").childElementCount < 3) {
+                                document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')
+                            }
 
                         break
 
@@ -272,7 +336,12 @@ const checkCollisions = () => {
 
                     document.querySelector(".score").innerText = `Points: ${player.points}`;
 
+// Removes collectable from collectables array
+
                     allCollectables.pop();
+
+// Generates new random collectable every 2500ms
+// [POTENTIAL UPGRADE] The collectable generator could be randomized too
 
                     setTimeout(function () {allCollectables.push(new collectable(randomSetCollectable()))},2500);
 
@@ -294,10 +363,11 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Event listener to change character appareance
+
 document.addEventListener('click', function (){
             if(event.target.nodeName === "IMG") {
                     player.sprite = event.target.attributes.src.nodeValue
-                    console.log (player.sprite);
                 }
             })
 

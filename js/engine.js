@@ -172,7 +172,17 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        console.log ("hello")
+
+        console.log("hello")
+
+
+        function gameOver() {
+
+
+            if (document.querySelector(".lifeCounter").childElementCount <= 0){
+               console.log("Game Over");}
+
+        };
         // noop
     }
 
