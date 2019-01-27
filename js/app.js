@@ -325,6 +325,7 @@ const checkCollisions = () => {
                         case (collectableItem.sprite === 'images/Heart.png') :
 
 // If a Heart is collected, it increases players life +1 to a maximum of 3
+// [POTENTIAL IMPROVEMENT] if player's heart = 3 do not generates more hearts
 
                             if (document.querySelector(".lifeCounter").childElementCount < 3) {
                                 document.querySelector(".lifeCounter").insertAdjacentHTML('beforeend','<img class= lifes src="images/Heart.png">')

@@ -75,6 +75,7 @@ Below you can find a list of potetial improvements to the game, you can also fin
 
  5. [app.js l.328] If a player has 3 heart do not generate more hearts, and generate other collectables
 
+
 ## Contributing
 
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
