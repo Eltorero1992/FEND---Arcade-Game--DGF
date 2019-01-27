@@ -301,6 +301,8 @@ const checkCollisions = () => {
 
 // Based on the image of the collectable it gives different points
 
+// [POTENTIAL IMPROVEMENT] Currently all items have the same probabiity of appearing, it could be made to an uneven probability
+
                     switch (true) {
                         case (collectableItem.sprite === 'images/Gem Blue.png') :
                         player.points += 10;
@@ -313,6 +315,8 @@ const checkCollisions = () => {
                         case (collectableItem.sprite === 'images/Gem Orange.png') :
                         player.points += 30;
                         break
+
+// [POTENTIAL IMPROVEMENT] Insted of grating the player points where a key is collected, a new character could be unloacked
 
                         case (collectableItem.sprite === 'images/Star.png') :
                         player.points += 50;
