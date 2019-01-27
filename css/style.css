@@ -13,6 +13,8 @@ button {
 
 }
 
+/* Game Header */
+
 .scoreHeader {
 	width: 505px;
 	display: flex;
@@ -35,12 +37,16 @@ button {
 	margin: auto;
 }
 
+/* Reset buttons */
+
 .resetButton {
 	margin: auto;
 	font-size: larger;
 	width: 200px;
 	border-radius: 20px;
 }
+
+/* Income/Outcome Screens */
 
 .outcomeScreen {
 	position: fixed;
@@ -65,6 +71,10 @@ button {
 	width: 200px;
 	border-radius: 20px;
 }
+
+
+/* When character is selected, images takes 80% of its height*/
+/* [POTENTIAL IMPROVEMENT] Character selection could be animated */
 
 .selectedCharacter {
 	height: 80%
