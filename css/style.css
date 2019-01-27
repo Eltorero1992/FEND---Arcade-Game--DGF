@@ -35,3 +35,26 @@ img {
 	border-radius: 20px;
 }
 
+.outcomeScreen {
+	position: fixed;
+    background-color: white;
+    -webkit-box-shadow: 10px 10px 33px -5px rgba(0,0,0,0.27);
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    width: 50%;
+    display: block;
+    z-index: 10000;
+    margin-top: 10%;
+    margin-left: 25%;
+    font-family: "montserrat";
+
+}
+
+.resetButtonOS {
+	margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+	font-size: larger;
+	width: 200px;
+	border-radius: 20px;
+}

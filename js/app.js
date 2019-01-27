@@ -269,7 +269,6 @@ let player = new playerObject
 // Instaciate collectables
 
 // [POTENCIAL UPGRADE] Currently only one collectable is generated, option to have multiple collectables at the same time
-
 let allCollectables = [new collectable(randomSetCollectable())]
 
 const checkCollisions = () => {
@@ -340,7 +339,7 @@ const checkCollisions = () => {
 
                     allCollectables.pop();
 
-// Generates new random collectable every 2500ms
+// Generates new random collectable every 500ms
 // [POTENTIAL UPGRADE] The collectable generator could be randomized too
 
                     setTimeout(function () {allCollectables.push(new collectable(randomSetCollectable()))},2500);
@@ -349,6 +348,9 @@ const checkCollisions = () => {
         }
     });
 }
+
+
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

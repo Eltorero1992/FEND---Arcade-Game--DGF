@@ -177,9 +177,11 @@ var Engine = (function(global) {
 
             player.x = player.startingPosition[0];
             player.y = player.startingPosition[1];
-            allCollectables.pop()
+            player.points = 0;
+            document.querySelector(".score").innerText = `Points: ${player.points}`;
+            allCollectables = [];
             allCollectables.push(new collectable(randomSetCollectable()))
-            allEnemies = []
+            allEnemies = [];
 
             for (i = 0; i < 4; i++) {
                 allEnemies.push(new Enemy(randomSet()))
@@ -196,8 +198,12 @@ var Engine = (function(global) {
 
         }
 
+        function outcomeScreen (){
 
+            let promptScreen = "<div class=\"outcomeScreen\"> <h1> You've been bugged! <\/h1> <h1> Total points : " + player.points + " <\/h1> <button class=\"resetButtonOS\"> Play Again <\/button> <\/div>"
+            document.querySelector("body").insertAdjacentHTML("afterbegin",promptScreen)
 
+        }
 
         document.querySelector(".resetButton").addEventListener('click', function(){
 
@@ -209,7 +215,16 @@ var Engine = (function(global) {
 
             if (document.querySelector(".lifeCounter").childElementCount <= 0){
 
+                outcomeScreen()
                 restartParameters();
+
+                document.querySelector(".resetButtonOS").addEventListener('click', function(){
+
+                    restartParameters();
+                    document.querySelector(".outcomeScreen").remove();
+
+                })
+
             }
 
         },100)
