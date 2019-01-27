@@ -198,9 +198,24 @@ var Engine = (function(global) {
 
         }
 
+        function incomeScreen (){
+
+            let promptScreen = "<div class=\"outcomeScreen\"> <h1> Welcome! <\/h1> <span class= \"characterSelection\"> Choose a Character </span> <div> <button> <img src='images/char-boy.png'> </button><button><img src='images/char-cat-girl.png'></button><button><img src='images/char-horn-girl.png'></button><button><img src='images/char-pink-girl.png'></button><button><img src='images/char-princess-girl.png'></button></div> <button class=\"resetButtonOS\"> Play Again <\/button> <\/div>"
+            document.querySelector("body").insertAdjacentHTML("afterbegin",promptScreen)
+
+        };
+
+        incomeScreen();
+
+        document.querySelector(".resetButtonOS").addEventListener('click', function(){
+
+            document.querySelector(".outcomeScreen").remove();
+
+        })
+
         function outcomeScreen (){
 
-            let promptScreen = "<div class=\"outcomeScreen\"> <h1> You've been bugged! <\/h1> <h1> Total points : " + player.points + " <\/h1> <button class=\"resetButtonOS\"> Play Again <\/button> <\/div>"
+            let promptScreen = "<div class=\"outcomeScreen\"> <h1> You've been bugged! <\/h1> <h1> Total points : " + player.points + " <\/h1> <span class= \"characterSelection\"> Choose a Character </span> <div> <button> <img src='images/char-boy.png'> </button><button><img src='images/char-cat-girl.png'></button><button><img src='images/char-horn-girl.png'></button><button><img src='images/char-pink-girl.png'></button><button><img src='images/char-princess-girl.png'></button></div> <button class=\"resetButtonOS\"> Play Again <\/button> <\/div>"
             document.querySelector("body").insertAdjacentHTML("afterbegin",promptScreen)
 
         }
