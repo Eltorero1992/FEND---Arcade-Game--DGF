@@ -369,7 +369,22 @@ document.addEventListener('keyup', function(e) {
 
 document.addEventListener('click', function (){
             if(event.target.nodeName === "IMG") {
+
+// Finds all the HTML images
+
+                    let images = document.querySelectorAll("img");
+
+// Deletes the class selected Character from the image
+
+                    images.forEach(function(images) { images.classList.remove("selectedCharacter")});
+
+// Sets the new images property for the player object
+
                     player.sprite = event.target.attributes.src.nodeValue
+
+// Enlarges selected character picture
+
+                    event.target.classList.add("selectedCharacter");
                 }
             })
 

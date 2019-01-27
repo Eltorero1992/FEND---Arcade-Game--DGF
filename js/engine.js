@@ -173,6 +173,8 @@ var Engine = (function(global) {
      */
     function reset() {
 
+// Reset parameters for player, enemies and collectables
+
         const restartParameters = () => {
 
             player.x = player.startingPosition[0];
@@ -198,6 +200,8 @@ var Engine = (function(global) {
 
         }
 
+// Welcome screen to the game
+
         function incomeScreen (){
 
             let promptScreen = "<div class=\"outcomeScreen\"> <h1> Welcome! <\/h1> <span class= \"characterSelection\"> Choose a Character </span> <div> <button> <img src='images/char-boy.png'> </button><button><img src='images/char-cat-girl.png'></button><button><img src='images/char-horn-girl.png'></button><button><img src='images/char-pink-girl.png'></button><button><img src='images/char-princess-girl.png'></button></div> <button class=\"resetButtonOS\"> Play Again <\/button> <\/div>"
@@ -213,6 +217,8 @@ var Engine = (function(global) {
 
         })
 
+// Game over screen
+
         function outcomeScreen (){
 
             let promptScreen = "<div class=\"outcomeScreen\"> <h1> You've been bugged! <\/h1> <h1> Total points : " + player.points + " <\/h1> <span class= \"characterSelection\"> Choose a Character </span> <div> <button> <img src='images/char-boy.png'> </button><button><img src='images/char-cat-girl.png'></button><button><img src='images/char-horn-girl.png'></button><button><img src='images/char-pink-girl.png'></button><button><img src='images/char-princess-girl.png'></button></div> <button class=\"resetButtonOS\"> Play Again <\/button> <\/div>"
@@ -220,11 +226,16 @@ var Engine = (function(global) {
 
         }
 
+// Adds listener to reset button
+
+
         document.querySelector(".resetButton").addEventListener('click', function(){
 
             restartParameters();
 
         })
+
+// Checks for players hearts and if none throws gameover screen
 
         setInterval (function () {
 
@@ -243,8 +254,6 @@ var Engine = (function(global) {
             }
 
         },100)
-
-
 
     }
 
